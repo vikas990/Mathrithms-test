@@ -1,15 +1,27 @@
-import React from "react";
 import { Select as select } from "@mui/material/";
+import { useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 
 const StyledSelect = styled(select)``;
 
-// eslint-disable-next-line react/display-name
-export const Select = React.forwardRef(
-  ({ onChange, onBlur, name, label }, ref) => {
-    return <StyledSelect name={name} ref={ref} onChange={onChange} />;
-  }
-);
+export const Select = (props) => {
+  const [value, setValue] = useState(props.value || "");
+  useEffect(() => {
+    setValue(props.value);
+  }, [props.value]);
+  return (
+    <StyledSelect
+      {...props}
+      name={props.name}
+      onChange={(e) => {
+        setValue(e.target.value);
+        props.onChange && props.onChange(e);
+      }}
+      value={value}
+    />
+  );
+};
 
 // EXAMPLE
 
