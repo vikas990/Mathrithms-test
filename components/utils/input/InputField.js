@@ -5,7 +5,13 @@ import styled from "styled-components";
 const StyledInputField = styled(TextField)``;
 
 export const InputField = (props) => {
-  return <StyledInputField {...props} variant="outlined" />;
+  return (
+    <StyledInputField
+      {...props}
+      {...props.register(props.name)}
+      variant="outlined"
+    />
+  );
 };
 
 export const StyledInputAdornment = styled(inputAdornment)``;

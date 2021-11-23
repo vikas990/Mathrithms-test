@@ -30,7 +30,7 @@ export default function Form() {
             fullWidth
             placeholder="name"
             name="name"
-            {...register("name")}
+            register={register}
           />
           <br />
           <br />

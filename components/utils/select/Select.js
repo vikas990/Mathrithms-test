@@ -1,11 +1,15 @@
+import React from "react";
 import { Select as select } from "@mui/material/";
 import styled from "styled-components";
 
 const StyledSelect = styled(select)``;
 
-export const Select = (props) => {
-  return <StyledSelect {...props} />;
-};
+// eslint-disable-next-line react/display-name
+export const Select = React.forwardRef(
+  ({ onChange, onBlur, name, label }, ref) => {
+    return <StyledSelect name={name} ref={ref} onChange={onChange} />;
+  }
+);
 
 // EXAMPLE
 
