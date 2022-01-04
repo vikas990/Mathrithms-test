@@ -1,8 +1,6 @@
 import { Card } from "./main.styles";
 import { useForm, useWatch } from "react-hook-form";
 import { Button, FormControl, InputField, MenuItem, Select } from "./utils";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 const Controller = ({ control, register, name, rules, render }) => {
   const value = useWatch({
     control,
@@ -24,22 +22,13 @@ const Controller = ({ control, register, name, rules, render }) => {
   });
 };
 export default function Form() {
-  // Schema
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .email("Please enter a valid Email")
-      .required("Email is required"),
-  });
   const {
     register,
     handleSubmit,
     reset,
     control,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-  });
+  } = useForm();
   console.log(errors);
   const submitHandler = (data) => {
     console.log(data);
