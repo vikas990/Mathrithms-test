@@ -1,7 +1,8 @@
 import { Card } from "./main.styles";
 import { useForm, useWatch } from "react-hook-form";
-import { useEffect } from "react";
 import { Button, FormControl, InputField, MenuItem, Select } from "./utils";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 const Controller = ({ control, register, name, rules, render }) => {
   const value = useWatch({
     control,
@@ -23,27 +24,29 @@ const Controller = ({ control, register, name, rules, render }) => {
   });
 };
 export default function Form() {
-  const { register, handleSubmit, reset, control, setValue } = useForm({
-    defaultValues: {
-      name: "test",
-      dropdown: "test2",
-    },
+  // Schema
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .email("Please enter a valid Email")
+      .required("Email is required"),
   });
-
-  useEffect(() => {
-    reset({
-      name: "test2",
-    });
-    setTimeout(() => {
-      setValue("dropdown", "test3");
-    }, 1000);
-  }, [reset]);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  console.log(errors);
   const submitHandler = (data) => {
     console.log(data);
   };
   return (
     <div>
-      <Card>
+      <Card url={v}>
         <h1>Form</h1>
         <form onSubmit={handleSubmit(submitHandler)}>
           <InputField
@@ -52,6 +55,7 @@ export default function Form() {
             name="name"
             register={register}
           />
+          <p style={{ color: "red" }}>{errors?.name?.message}</p>
           <br />
           <br />
           <Controller
