@@ -29,13 +29,13 @@ export default function Form() {
     control,
     formState: { errors },
   } = useForm();
-  console.log(errors);
+  // console.log(errors);
   const submitHandler = (data) => {
     console.log(data);
   };
   return (
     <div>
-      <Card url={v}>
+      <Card>
         <h1>Form</h1>
         <form onSubmit={handleSubmit(submitHandler)}>
           <InputField

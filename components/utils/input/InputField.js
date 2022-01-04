@@ -8,7 +8,7 @@ export const InputField = (props) => {
   return (
     <StyledInputField
       {...props}
-      {...props.register(props.name)}
+      // {...props.register(props.name)}
       variant="outlined"
     />
   );
